@@ -18,14 +18,14 @@ class BlogController extends Controller
 		if(\Auth::check()){
 			if($user->role == '2'){
 
-				$blogs = Blog::all()->where('created_by', '=', Auth::id())->where('is_active', '=', '1');
+				$blogs = Blog::all()->where('created_by', '=', Auth::id())->where('is_active', '=', '1')->where('end_date', '>=', date('Y-m-d'));
 			}else{
 
 				$blogs = Blog::all();
 			}
 		}else{
 
-			$blogs = Blog::all()->where('is_active', '=', '1');
+			$blogs = Blog::all()->where('is_active', '=', '1')->where('end_date', '>=', date('Y-m-d'));
 
 		}
 		return view('blogs.index', compact('blogs'));
